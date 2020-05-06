@@ -7,7 +7,11 @@ func (r topicMetadataRequestV1) size() int32 {
 }
 
 func (r topicMetadataRequestV1) writeTo(wb *writeBuffer) {
-	wb.writeStringArray([]string(r))
+	if len(r) == 0 {
+		wb.writeInt32(-1)
+	} else {
+		wb.writeStringArray([]string(r))
+	}
 }
 
 type metadataResponseV1 struct {
